@@ -1,0 +1,31 @@
+# dependencies
+node_modules/
+
+# local env and secrets
+.env
+.env.*
+!.env.example
+
+# local database
+backend/data/*.db
+backend/data/*.db-shm
+backend/data/*.db-wal
+**/backend/data/*.db
+**/backend/data/*.db-shm
+**/backend/data/*.db-wal
+
+# build output
+dist/
+frontend/dist/
+**/frontend/dist/
+coverage/
+playwright-report/
+test-results/
+
+# logs and editor junk
+*.log
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~
