@@ -2,98 +2,152 @@
 
 [English](#english) · [中文](#中文)
 
-一个用来安放自己的个人主页：写文章、发布作品、介绍项目。前台安静，后台可以直接改字、换版式、上下架内容。
+个人主页 + 文章 + 发布页 + 管理后台。站点文案、文章和发布项在后台改，前台直接更新。
 
-A personal homepage for writing, publishing work, and introducing projects. The front is quiet. The back lets you change copy, switch layouts, and ship or unship pages.
+A personal homepage with articles, release pages, and an admin panel. Edit copy and posts in the admin; the site updates from that.
 
 ---
 
 ## 中文
 
-### 这是什么
+LumenPages 用来搭个人主页。首页放介绍，下面用整屏发布页展示游戏、作品或外链，另外有文章页。管理员登录后台后可以改站点信息、写文章、上下架发布项，并给每个发布项选一种版式。
 
-LumenPages 是一套个人主页系统。它不是再做一个热闹的信息流，而是给你一个自己的地方：首页介绍你是谁、正在做什么；往下用整屏宣传页展示游戏、作品或外部项目；文章页用来放更完整的判断和长期写作。
+### 功能
 
-站点名字、介绍、联系方式、导航、文章和发布项，都可以在后台改。改完立刻反映到前台，不用重新改代码。
+- 首页、发布页、文章页
+- 后台改站点名称、介绍、导航、联系方式
+- 后台写文章（Markdown），控制发布和置顶
+- 后台管理发布项：标题、介绍、跳转链接、按钮文案、版式
+- 24 种发布页风格
 
-### 为什么做它
+### 发布页风格
 
-社交平台适合传播，不适合安放。一句话会被切短，一篇长文要先让位给封面和标题，个人主页则把顺序交还给作者。
+保留原来的 4 种基础风格，再加上 20 种：
 
-LumenPages 按这个想法来做：前台像展厅，文字和作品有呼吸空间；后台像编辑台，负责维护、重写、下线和重新排序。长期写下去，它会慢慢变成一个人的坐标系，而不是一堆发过就散的碎片。
+1. Legacy 01 · 轨道核心
+2. Legacy 02 · 横向光带
+3. Legacy 03 · 卡片层叠
+4. Legacy 04 · 控制台
+5. 01 · 棱镜展台
+6. 02 · 极光穹顶
+7. 03 · 杂志封面
+8. 04 · 电影幕布
+9. 05 · 地图等高线
+10. 06 · 黄金格点
+11. 07 · 星云矩阵
+12. 08 · 玻璃陈列柜
+13. 09 · 时间轴发布
+14. 10 · 聚光剧场
+15. 11 · 黑色碑体
+16. 12 · 温室花园
+17. 13 · 蓝图工程
+18. 14 · 液态金属
+19. 15 · 星座网络
+20. 16 · 艺廊切片
+21. 17 · 地平线渐层
+22. 18 · 胶囊模块
+23. 19 · 折纸剧场
+24. 20 · 方程曲面
 
-### 打开之后能看到什么
+模板配置在 `frontend/src/releaseTemplates.js`。后台下拉或 24 宫格里选一个，保存到发布项的 `visual_style`。
 
-- **首页**：一段个人介绍，再往下是按发布时间排列的宣传屏。
-- **宣传页**：每一个发布项都可以选一种视觉骨架。游戏、文章、工具、外部链接都能做成单独一屏。
-- **文章**：适合慢慢读的正文，支持 Markdown。
-- **管理后台**：登录后改站点信息、写文章、管理发布项、切换模板。
+### 技术栈
 
-宣传页现在有二十多种模板，从轨道、光带、控制台，到杂志封面、电影幕布、蓝图和艺廊。同一套内容，换一个模板就是换一种出场方式。
+- 前台：React、Vite、Framer Motion、React Router
+- 后台：Express、SQLite
+- 文章：Markdown
 
-### 它怎么工作
-
-前台是 React 页面，负责阅读和浏览。后台接口由 Express 提供，内容存在本地 SQLite 里。管理员登录后拿到短期凭证，才能改站点和发布内容。第一次启动会生成一份示例数据和默认管理员账号，方便你先走通，再换成自己的文字。
-
-本地开发时，前台在 `5173`，接口在 `3001`。生产构建后，后端会直接托管前端页面。
+### 启动
 
 ```bash
 npm install
 cp backend/.env.example backend/.env
-# 把 JWT_SECRET 和 ADMIN_PASSWORD 改成你自己的值
+# 修改 JWT_SECRET 和 ADMIN_PASSWORD
 npm run dev
 ```
 
-后台入口：`/admin/login`
+- 前台：http://localhost:5173
+- 接口：http://localhost:3001
+- 后台：`/admin/login`
 
-默认只用于本地第一次启动。上线前请改掉 `.env` 里的密钥和密码，不要把数据库和真实环境文件提交进仓库。
+生产环境：
 
-### 适合谁
+```bash
+npm run build
+NODE_ENV=production npm start
+```
 
-适合想要一个自己的站点、又希望后台改字就能上线的人。它适合个人介绍、作品发布、长期写作，不追求做成又一个内容平台。
+上线前改好 `.env`。不要提交数据库和真实环境文件。
 
 ---
 
 ## English
 
-### What this is
+LumenPages is a personal homepage: intro on the home page, full-screen release pages for games, work, or links, plus article pages. After login you can edit site copy, write posts, publish or unpublish releases, and pick a layout for each release.
 
-LumenPages is a personal homepage system. It is not another noisy feed. It is a place of your own: a front page for who you are and what you are making, full-screen release pages for games, work, or outside projects, and article pages for longer thinking.
+### Features
 
-Site name, introduction, contact links, navigation, essays, and releases can all be edited in the admin. Changes show up on the site without rewriting the code.
+- Home, release pages, and articles
+- Admin editing for site name, intro, nav, and contact links
+- Markdown articles, with publish and featured flags
+- Releases: title, intro, URL, button label, and visual style
+- 24 release-page styles
 
-### Why it exists
+### Release styles
 
-Social platforms are good at distribution and poor at keeping a person intact. A sentence gets shortened. A long piece has to make room for a cover and a title. A homepage gives the order back to the author.
+The original 4 layouts, plus 20 more:
 
-LumenPages is built around that idea. The front feels like a gallery: type and work have room to breathe. The back feels like an editing desk: maintain, rewrite, take down, reorder. Kept over time, the site becomes a coordinate system, not a pile of posts that vanish after they ship.
+1. Legacy 01 · Orbit Core
+2. Legacy 02 · Ribbon
+3. Legacy 03 · Card Stack
+4. Legacy 04 · Console
+5. 01 · Prism Stage
+6. 02 · Aurora Dome
+7. 03 · Magazine Cover
+8. 04 · Cinema Curtain
+9. 05 · Atlas Contours
+10. 06 · Golden Lattice
+11. 07 · Nebula Grid
+12. 08 · Glass Cabinet
+13. 09 · Timeline
+14. 10 · Spotlight
+15. 11 · Monolith
+16. 12 · Greenhouse
+17. 13 · Blueprint
+18. 14 · Liquid Metal
+19. 15 · Constellation
+20. 16 · Gallery Slices
+21. 17 · Horizon
+22. 18 · Capsule
+23. 19 · Origami
+24. 20 · Equation Surface
 
-### What you see
+Templates live in `frontend/src/releaseTemplates.js`. Pick one in the admin; it is stored as `visual_style`.
 
-- **Home**: a short introduction, then release screens in publish order.
-- **Release pages**: each item can pick a visual frame. A game, an essay, a tool, or an external link can each take a full screen.
-- **Articles**: long-form pages, written in Markdown.
-- **Admin**: change site copy, write articles, manage releases, and switch templates after login.
+### Stack
 
-There are more than twenty templates, from orbit, ribbon, and console to magazine cover, cinema curtain, blueprint, and gallery. Same content, different entrance.
+- Front: React, Vite, Framer Motion, React Router
+- Back: Express, SQLite
+- Articles: Markdown
 
-### How it works
-
-The front is a React site for reading. Express serves the API. SQLite keeps the content on disk. An admin login issues a short-lived token before anything can be edited. The first launch seeds sample writing and a default admin account, so you can walk through the site, then replace the words with your own.
-
-In development the front runs on `5173` and the API on `3001`. After a production build, the backend hosts the front as well.
+### Run
 
 ```bash
 npm install
 cp backend/.env.example backend/.env
-# set your own JWT_SECRET and ADMIN_PASSWORD
+# set JWT_SECRET and ADMIN_PASSWORD
 npm run dev
 ```
 
-Admin: `/admin/login`
+- Front: http://localhost:5173
+- API: http://localhost:3001
+- Admin: `/admin/login`
 
-The defaults are only for the first local start. Change the secret and password in `.env` before you put the site online. Do not commit the database or a real environment file.
+Production:
 
-### Who it is for
+```bash
+npm run build
+NODE_ENV=production npm start
+```
 
-It is for someone who wants a site of their own, and wants to publish by editing words rather than shipping code every time. It fits a personal introduction, a release wall, and long writing. It is not trying to be another content platform.
+Change `.env` before going live. Do not commit the database or a real env file.
